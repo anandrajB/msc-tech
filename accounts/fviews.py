@@ -36,8 +36,18 @@ def home(request):
 
 
 
-def profile(request):
-    return render(request,'profile.html')
+
+from django.http import HttpResponse
+from django.template import loader
+from .models import Names
+def piston(request):
+    mydata = Names.objects.filter(title = 'PISTON',user = request.user.id)
+    template = loader.get_template('piston.html')
+    context = {
+    'mymembers': mydata
+    }
+    print(context)
+    return HttpResponse(template.render(context, request))
 
 
 
