@@ -14,7 +14,7 @@ from django.contrib.auth import (
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
-
+from rest_framework.authtoken.models import Token
 from accounts.models import Names
 from .serializer import Loginserialzier, Namesserializer, UserSerializer, profileserializer
 from rest_framework.permissions import AllowAny , IsAuthenticated
@@ -36,11 +36,13 @@ class UserLoginView(CreateAPIView):
             user = authenticate(username=username,password=password)
             if user:
                     login(request, user)
+                    token, created = Token.objects.get_or_create(user=user)
                     data = {
                         "user_id": user.id,
                         "username" :  user.username,
                         "first_name" : user.first_name,
                         "email" : user.email,
+                        'token' : token.key,
                         "is_superuser" : user.is_superuser,
                     }
                     return Response({"status": "success", "data": data }, status=status.HTTP_200_OK)
