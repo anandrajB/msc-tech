@@ -13821,3 +13821,14 @@ body.sidebar-toggled footer.sticky-footer {
     background-image: url(assets/img/dogs/msc.png);
     background-position: center center;
 }
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 1rem 1rem;
+  }
+  
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+    
