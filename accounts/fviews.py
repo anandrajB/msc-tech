@@ -5,6 +5,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 
+from django.http import HttpResponse
+from django.template import loader
+from .models import Names
+from django.contrib.auth.models import User as user
+
+
+
 @csrf_exempt
 def index(request):
     if request.method == 'POST':
@@ -36,13 +43,16 @@ def home(request):
 
 
 def table(request):
-    return render(request,'table.html')
+    data = user.objects.all()
+    context = {
+    'user': data
+    }
+    return render(request,'table.html',context)
 
 
 
-from django.http import HttpResponse
-from django.template import loader
-from .models import Names
+
+
 def piston(request):
     mydata = Names.objects.filter(title = 'PISTON',user = request.user.id)
     template = loader.get_template('piston.html')
