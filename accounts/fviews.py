@@ -14,9 +14,9 @@ def index(request):
         print(password)
         user = auth.authenticate(username=username, password=password)
 
-        if user is not None:
+        if user is not None :
             auth.login(request, user)
-            return redirect('/selectmode')
+            return redirect('/table')
         else: 
             messages.info(request, 'Invalid Username or Password')
             return redirect('/')
@@ -34,6 +34,9 @@ def logout(request):
 def home(request):
     return render(request,'index.html')
 
+
+def table(request):
+    return render(request,'table.html')
 
 
 

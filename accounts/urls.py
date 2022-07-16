@@ -2,7 +2,7 @@ from django.urls import path
 
 from accounts.fviews import index
 from .views import UserLoginView , UserProfileApiView, UserSignUpApiView , logoutapi , NameListCreateapi
-from .fviews import home  , mode , register , piston 
+from .fviews import home  , mode , register , piston  , table
 
 urlpatterns = [
     path('login/',UserLoginView.as_view()),
@@ -14,4 +14,5 @@ urlpatterns = [
     path('selectmode',mode),
     path('register',register),
     path('piston',piston),
+    
 ]
