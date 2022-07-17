@@ -99,6 +99,7 @@ class NameListCreateapi(ListCreateAPIView):
     serializer_class = Namesserializer
     permission_classes = [IsAuthenticated]
 
+    
     def get(self,request):
         user = request.user
         query = Names.objects.filter(user = user.id)
@@ -124,10 +125,17 @@ class ScoreCreateApiview(ListCreateAPIView):
     serializer_class = Scoreserializer
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self, request):
+        user = self.request.user
+        data = self.request.query_params.get('mode')
+        if data is not None:
+            qs = Score.objects.filter(mode=data)
+        else:
+            qs = Score.objects.filter(user = user)
+        return 
 
     def get(self,request):
-        user = request.user
-        query = Score.objects.filter(user = user.id)
+        query = self.get_queryset(self)
         serializer = Scoreserializer(query,many=True)
         return Response({"status": "success", "data": serializer.data},status=status.HTTP_200_OK)
 
