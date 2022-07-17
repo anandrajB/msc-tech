@@ -17,8 +17,6 @@ def index(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        print(username)
-        print(password)
         user = auth.authenticate(username=username, password=password)
 
         if user is not None :
@@ -43,9 +41,9 @@ def home(request):
 
 
 def table(request):
-    data = user.objects.all()
+    data = user.objects.all().values()
     context = {
-    'user': data
+    'data': data
     }
     return render(request,'table.html',context)
 

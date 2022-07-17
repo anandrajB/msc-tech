@@ -15,8 +15,8 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
-from accounts.models import Names
-from .serializer import Loginserialzier, Namesserializer, UserSerializer, profileserializer
+from accounts.models import Names, Score
+from .serializer import Loginserialzier, Namesserializer, Scoreserializer, UserSerializer, profileserializer
 from rest_framework.permissions import AllowAny , IsAuthenticated
 # Create your views here.
 User = get_user_model()
@@ -112,5 +112,28 @@ class NameListCreateapi(ListCreateAPIView):
         serializer = Namesserializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user = user)
+            return Response({"status": "success"}, status=status.HTTP_201_CREATED)
+        return Response({"status": "failure", "data": serializer.errors},status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+# from vr headset , post method 
+class ScoreCreateApiview(ListCreateAPIView):
+    queryset = Score.objects.all()
+    serializer_class = Scoreserializer
+    permission_classes = [IsAuthenticated]
+
+
+    def get(self,request):
+        user = request.user
+        query = Score.objects.filter(user = user.id)
+        serializer = Scoreserializer(query,many=True)
+        return Response({"status": "success", "data": serializer.data},status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = Scoreserializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
             return Response({"status": "success"}, status=status.HTTP_201_CREATED)
         return Response({"status": "failure", "data": serializer.errors},status=status.HTTP_204_NO_CONTENT)

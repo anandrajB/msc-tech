@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Names
+from .models import Names, Score
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -34,4 +34,10 @@ class Loginserialzier(serializers.ModelSerializer):
 class Namesserializer(serializers.ModelSerializer):
     class Meta:
         model = Names
+        fields = '__all__'
+
+
+class Scoreserializer(serializers.ModelSerializer):
+    class Meta:
+        model =  Score
         fields = '__all__'
