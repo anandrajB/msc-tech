@@ -141,16 +141,16 @@
                                         <thead>
                                             <tr>
                                                 <th>id</th>
-                                                <th>score</th>
-                                                <th>description</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% for user in data %}  
                                             <tr>
-                                                <td>{{user.user_id}}</td>
-                                                <td>{{user.training_score}}</td>
-                                                <td>{{user.description}}</td>
+                                                <td>{{user.id}}</td>
+                                                <td><a id = "GF" href="/selectmode">{{user.username}}</a></td></td>
+                                                <td>{{user.email}}</td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>

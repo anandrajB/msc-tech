@@ -15,7 +15,7 @@ class Names(models.Model):
 
 
 class Score(models.Model):
-    user = models.OneToOneField(User , on_delete= models.CASCADE)
+    user = models.ForeignKey(User , on_delete= models.CASCADE)
     mode = models.CharField(max_length = 255)
     training_score = models.IntegerField()
     marks = models.CharField(max_length=255,blank=True, null=True)

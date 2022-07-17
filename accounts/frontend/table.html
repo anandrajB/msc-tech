@@ -80,7 +80,7 @@
                                         {% for user in data %}  
                                         <tr>
                                             <td>{{user.id}}</td>
-                                            <td><a id = "GF" href="/selectmode">{{user.username}}</a></td></td>
+                                            <td><a id = "GF" href="/selectmode" >{{user.username}}</a></td></td>
                                             <td>{{user.email}}</td>
                                         </tr>
                                         {% endfor %}
@@ -122,3 +122,12 @@
     color: #858796;
 }
 </style>
+
+
+<script>
+    function saveUserData() {
+    var userdata = document.getElementById('GF').value;
+    console.log("users value is: " + userdata);
+    }
+</script> 
+    

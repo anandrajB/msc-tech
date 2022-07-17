@@ -126,13 +126,14 @@ class ScoreCreateApiview(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self, request):
-        user = self.request.user
+        users = self.request.user
+        # either by guide or expert mode
         data = self.request.query_params.get('mode')
         if data is not None:
             qs = Score.objects.filter(mode=data)
         else:
-            qs = Score.objects.filter(user = user)
-        return 
+            qs = Score.objects.filter(user = users)
+        return qs
 
     def get(self,request):
         query = self.get_queryset(self)
