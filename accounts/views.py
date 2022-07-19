@@ -15,8 +15,8 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
-from accounts.models import Names, Score
-from .serializer import Loginserialzier, Namesserializer, Scoreserializer, UserSerializer, profileserializer
+from accounts.models import Names, Spares
+from .serializer import Loginserialzier, Namesserializer, Spareserilaizer, UserSerializer, profileserializer
 from rest_framework.permissions import AllowAny , IsAuthenticated
 # Create your views here.
 User = get_user_model()
@@ -119,29 +119,21 @@ class NameListCreateapi(ListCreateAPIView):
 
 
 
-# from vr headset , post method 
-class ScoreCreateApiview(ListCreateAPIView):
-    queryset = Score.objects.all()
-    serializer_class = Scoreserializer
-    permission_classes = [IsAuthenticated]
 
-    def get_queryset(self, request):
-        users = self.request.user
-        # either by guide or expert mode
-        data = self.request.query_params.get('mode')
-        if data is not None:
-            qs = Score.objects.filter(mode=data)
-        else:
-            qs = Score.objects.filter(user = users)
-        return qs
+class SparesApi(ListCreateAPIView):
+    queryset = Spares.objects.all()
+    serializer_class = Spareserilaizer
+    permission_classes = [AllowAny]
 
-    def get(self,request):
-        query = self.get_queryset(self)
-        serializer = Scoreserializer(query,many=True)
-        return Response({"status": "success", "data": serializer.data},status=status.HTTP_200_OK)
+
+    def list(self,request):
+        queryset = Spares.objects.all()
+        serializer = Spareserilaizer(queryset , many = True)
+        return Response({"data":"success","data":serializer.data})
+
 
     def post(self, request):
-        serializer = Scoreserializer(data=request.data)
+        serializer = Spareserilaizer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({"status": "success"}, status=status.HTTP_201_CREATED)

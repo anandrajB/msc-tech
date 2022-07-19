@@ -7,7 +7,7 @@ from django.contrib.auth.models import User, auth
 
 from django.http import HttpResponse
 from django.template import loader
-from .models import Names  , Score
+from .models import Names , Spares
 from django.contrib.auth.models import User as user
 
 
@@ -37,16 +37,24 @@ def logout(request):
 
 
 def home(request):
-    data = Score.objects.filter(user =  request.user , mode = "GUIDE").values()
+    data = Spares.objects.filter( username = "karthick" , states = "GUIDE").values()
     print(data)
     context = {
     'data': data
     }
     return render(request,'index.html',context)
 
+def overview(request):
+    data = Spares.objects.filter( username = "karthick" ).values()
+    context = {
+    'data': data
+    }
+    return render(request,'overview.html',context)
+
 
 def home2(request):
-    data = Score.objects.filter(user =  request.user , mode = "EXPERT").values()
+    data = Spares.objects.filter( username = "karthick" ,states = "EXPERT").values()
+    print(data)
     context = {
     'data': data
     }
@@ -55,7 +63,8 @@ def home2(request):
 
 
 def table(request):
-    data = user.objects.all().values()
+    # user = request.user
+    data = user.objects.exclude(is_superuser = True).values()
     context = {
     'data': data
     }
@@ -107,7 +116,11 @@ def register(request):
 
 
 def mode(request):
-    return render(request,'mode.html')
+    data = Spares.objects.filter(username = "karthick" ).values()
+    context = {
+    'data': data
+    }
+    return render(request,'mode.html',context)
 
 
 

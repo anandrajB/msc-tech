@@ -14,12 +14,16 @@ class Names(models.Model):
         return self.title
 
 
-class Score(models.Model):
-    user = models.ForeignKey(User , on_delete= models.CASCADE)
-    mode = models.CharField(max_length = 255)
-    training_score = models.IntegerField()
-    marks = models.CharField(max_length=255,blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+
+
+
+class Spares(models.Model):
+    username = models.CharField(max_length=255)
+    mode = models.CharField(max_length=255)
+    states = models.CharField(max_length=255)
+    parts = models.CharField(max_length=255)
+    created_date = models.DateTimeField(auto_now_add = True)
+    score = models.IntegerField()
 
     def __str__(self):
-        return self.user
+        return self.username

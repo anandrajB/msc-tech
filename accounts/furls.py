@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .fviews import home , index , mode , register , piston , table ,home2
+from .fviews import home , index , mode , register , piston , table ,home2 , overview
 
 urlpatterns = [
     path('',index),
@@ -9,5 +9,6 @@ urlpatterns = [
     path('selectmode',mode),
     path('register',register),
     path('piston',piston),
-    path('table',table)
+    path('table',table),
+    path('overview',overview)
 ]
